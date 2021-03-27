@@ -1,2 +1,2 @@
 # MEGATape
- 1er jeu créé, smash like
+ First game I'm working on, to try and get a hang of Unity
