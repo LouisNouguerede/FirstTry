@@ -7,18 +7,21 @@ public class Player1 : MonoBehaviour
     [SerializeField] private Transform groundCheckTransform;
     [SerializeField] private LayerMask player1Mask;
 
+    private int healthPoints;
     private Rigidbody rigidBody;
     private bool jumpKeyPressed;
     private bool dashKeyPressed;
     private float horizontalInput;
     private int jumpToken;
     private int dashToken;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         dashToken = 1;
+        healthPoints = 2;
         jumpKeyPressed = false;
         dashKeyPressed = false;
     }
@@ -50,12 +53,12 @@ public class Player1 : MonoBehaviour
         {
             if (horizontalInput > 0)
             {
-                rigidBody.AddForce(Vector3.right * 100, ForceMode.Acceleration);
+                rigidBody.AddForce(Vector3.right * 100, ForceMode.Impulse);
                 dashToken--;
             }
             else if (horizontalInput < 0)
             {
-                rigidBody.AddForce(Vector3.left * 100, ForceMode.Acceleration);
+                rigidBody.AddForce(Vector3.left * 100, ForceMode.Impulse);
                 dashToken--;
             }
             else if (horizontalInput == 0)
@@ -86,11 +89,10 @@ public class Player1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //layer 8 == DashCapsuleLayer
+        //layer 8 == DashCapsuleLayer 
         if(other.gameObject.layer == 8)
         {
             dashToken++;
-            Destroy(other.gameObject);
             
         }
     }
